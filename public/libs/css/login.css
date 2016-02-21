@@ -1,0 +1,31 @@
+body {
+    background: #eee; 
+}
+
+.form-login {
+    background: white;
+    margin-top: 100px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
+    padding: 0;
+    width: 400px;
+}
+
+.form-login legend {
+    background: #2A3F54;
+    color: #EFEAEA;
+    font-size: 16px;
+    padding: 10px;
+    text-align: center;
+}
+
+.form-login .form-group {
+    padding: 0px 20px;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+.form-control {
+    border-radius: 2px;
+}

@@ -1,0 +1,55 @@
+	.panel-heading {
+		background: #2A3F54 !important;
+		color: white !important;
+	}
+
+	.title {
+		font-style: italic;
+		font-size: 16px;
+		color: gray;
+		font-weight: bold;
+	}
+
+	.table {
+		border: 1px solid #E6E4E4 !important;
+		border-top: none !important;
+	}
+
+	td {
+		background: white !important;
+		padding: 4px !important;
+	}
+
+	th, td {
+		font-size: 12px !important;
+		text-align: left !important;
+		padding-left: 20px !important;
+	}    
+
+	.menu-tab-check ul {
+		padding: 0;
+	}
+
+	.menu-tab-check li {
+		list-style: none;
+		float: left;
+		padding: 6px 16px;
+		border: 1px solid #ccc;
+	}
+
+	.menu-tab-check li a {
+		color: black
+	}
+
+	.menu-tab-check-active {
+		background: #337AB7;
+		border: 1px solid #337ab7 !important;
+	}
+
+	.menu-tab-check-active a {
+		color: white !important;
+	}
+
+	.check-screen-td {
+		padding-top: 12px !important;
+	}
