@@ -51,31 +51,39 @@ class EmployeeController extends AuthController {
 	}
 
 	public function actionDeleteEmployee ($id) {
-		User::where('id', $id)->delete();
-		return Redirect::back()->with('result-delete-user', 1);
+		if (User::where('id', $id)->delete()) {
+			return Redirect::back()->with('notify', 'Xóa tài khoản thành công');
+		} else {
+			return Redirect::back()->with('error', 'Có lỗi trong quá trình xử lý');
+		}		
 	}
 
 	public function actionBlockEmployee ($id) {
-		User::where('id', $id)->update(array('lock'=> 1));
-		return Redirect::back()->with('result-block-user', 1);
+		if (User::where('id', $id)->update(array('lock'=> 1))) {
+			return Redirect::back()->with('notify', 'Khóa tài khoản thành công ');
+		} else {
+			return Redirect::back()->with('error', 'Có lỗi trong quá trình xử lý');
+		}
 	}
 
 	public function actionUnlockEmployee ($id) {
-		User::where('id', $id)->update(array('lock'=> 0));
-		return Redirect::back()->with('result-unblock-user', 1);	
+		if (User::where('id', $id)->update(array('lock'=> 0))) {
+			return Redirect::back()->with('notify', 'Mở khóa người dùng thành công');
+		} else {
+			return Redirect::back()->with('error', 'Có lỗi trong quá trình xử lý');
+		}		
 	}
 
 	public function actionAddEmployee () {
 		if (!Input::has('username') || !Input::has('password') || !Input::has('email') || !Input::has('fullname')) {
 			// Validate form
-			return Redirect::back()->with('result-add-user', -1);
+			return Redirect::back()->with('error', 'Điền đầy đủ thông tin trước khi thêm nhân viên');
 		} else if (Input::get('password') != Input::get('password_confirm')) {
 			// Kiểm tra mật khẩu có trùng nhau
-			return Redirect::back()->with('result-add-user', -2);
+			return Redirect::back()->with('error', 'Mật khẩu nhập lại không khớp');
 		} else {
 			// Kiểm tra tồn tại tài khoản chưa
-			$numberUser = User::where('username', Input::get('username'))
-						->where('token', 0)->count();
+			$numberUser = User::where('username', Input::get('username'))->where('token', 0)->count();
 			if ($numberUser == 0) {
 				$user = new User();
 				$user->username = Input::get('username');
@@ -86,17 +94,20 @@ class EmployeeController extends AuthController {
 				$user->status = 0;
 				$user->lock = 0;
 				$user->position = Input::get('position');
-				$user->save();
-				return Redirect::back()->with('result-add-user', 1);
+				if ($user->save()) {
+					return Redirect::back()->with('notify', 'Thêm nhân viên thành công');
+				} else {
+					return Redirect::back()->with('error', 'Có lỗi trong quá trình xử lý');
+				}				
 			} else {
-				return Redirect::back()->with('result-add-user', -3);
+				return Redirect::back()->with('error', 'Nhân viên này đã tồn tại');
 			}
 		}
 	}
 
 	public function actionSearchEmployee () {
 		if (!Input::has('key_search'))
-			return Redirect::back()->with('result-search-error', -1);
+			return Redirect::back()->with('error', 'Hãy nhập đầy đủ thông tin trước khi tìm kiếm');
 
 		$keySearch = Input::get('key_search');
 		$resultSearch = $this->user->searchbyKey($keySearch);

@@ -10,19 +10,18 @@
 		Danh sách công việc đã được giao
 	</p>
 
-	@if (Session::get('result-rate-work') == -1)
-		<div class="alert alert-danger">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<strong>Lỗi!</strong> kết nối cơ sở dữ liệu
-		</div>
-	@endif
+	@if (Session::has('error'))
+        <div class="alert alert-danger">                    
+            <strong>Lỗi!</strong> {{ Session::get('error') }}
+        </div>
+    @endif
 
-	@if (Session::get('result-rate-work') == 1)
-		<div class="alert alert-info">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<strong>Thông báo!</strong> đánh giá công việc thành công
-		</div>
-	@endif
+    @if (Session::has('notify'))
+        <div class="alert alert-success">                    
+            <strong>Thông báo!</strong> {{ Session::get('notify') }}
+        </div>
+    @endif
+    
 	<div class="table-responsive">
 		<table class="table table-hover">
 			<thead class="bg-primary">

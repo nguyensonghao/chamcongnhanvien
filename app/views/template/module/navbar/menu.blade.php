@@ -89,66 +89,15 @@
                 </div>
             </div>
             <div class="panel list-group-item">
-                <div class="panel-heading" role="tab" id="headingThree" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <div class="panel-heading">
                     <p class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <a class="collapsed" href="{{Asset('work/rate')}}">
                             <i class="fa fa-bar-chart"></i>
-                            Tổng hợp kết quả
-                            <span class="glyphicon glyphicon-chevron-down"></span>
+                            Đánh giá công việc
                         </a>
                     </p>
-                </div>
-                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                    <div class="panel-body">
-                        <ul class="list-group list-group-small">
-                            <li class="list-group-item">
-                                <a>
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                    Hủy công việc
-                                </a>
-                            </li>
-                            <li class="list-group-item">
-                                <a>
-                                    <span class="glyphicon glyphicon-bell"></span>
-                                    Thông báo
-                                </a>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="{{Asset('work/rate')}}">
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    Đánh giá công việc
-                                </a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!--<div class="panel list-group-item">
-                <div class="panel-heading" role="tab" id="headingFour" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                    <p class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            <i class="fa fa-bar-chart"></i>
-                            Điểm danh nhân viên
-                            <span class="glyphicon glyphicon-chevron-down"></span>
-                        </a>
-                    </p>
-                </div>
-                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                    <div class="panel-body">
-                        <ul class="list-group list-group-small">
-                            <li class="list-group-item">
-                                <a>
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                    Hủy công việc
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>!-->
-            
+                </div>                
+            </div>           
         </ul>
     </ul>
 </div>

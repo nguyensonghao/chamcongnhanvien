@@ -14,7 +14,7 @@
 
         <div class="col-md-7">
             <p class="welcome">Welcome,</p>
-            <p>NguyenSongHao</p>
+            <p>{{ Auth::user()->username }}</p>
         </div>
     </div>
 </div>

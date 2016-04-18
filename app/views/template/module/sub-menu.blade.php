@@ -3,30 +3,17 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge quantity">6</span>
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu list-message wow">
-                    <li><a href="#">Hỏi đáp về việc mất tài khoản</a></li>
-                    <li><a href="#">Cách đăng ký 1 người dùng mới</a></li>
-                    <li><a href="#">Bao nhiêu lâu khuyến mãi một lần</a></li>
-                    <li><a href="#">Thông tin về quà tặng tháng 10</a></li>
-                </ul>
-            </li>
+        <ul class="nav navbar-nav navbar-right">            
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <img src="{{ Asset('img/admin.png') }}" 
                     height="30px" class="nav-user-avatar">
-                    <span class="username">Nguyenhao</span>
+                    <span class="username">{{ Auth::user()->username }}</span>
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu wow">
                     <li>
-                        <a href="#">
+                        <a href="{{ Asset('profile') }}">
                             Thông tin tài khoản
                         </a>
                     </li>

@@ -38,7 +38,7 @@ class WorkController extends AuthController {
 	}
 
 	public function showUpdateWork () {
-		$list['list_work'] = Work::where('status', '#', 2)->get();
+		$list['list_work'] = Work::where('status', '<>', 2)->get();
 		return View::make('manager.work.update', $list);
 	}
 
@@ -65,13 +65,16 @@ class WorkController extends AuthController {
 	}
 
 	public function actionDeleteWork ($id) {
-		Work::where('id', $id)->delete();
-		return Redirect::to('work/list/1')->with('result-delete-work', 1);
+		if (Work::where('id', $id)->delete()) {
+			return Redirect::back()->with('notify', 'Xóa công việc thành công');
+		} else {
+			return Redirect::back()->with('error', 'Có lỗi trong quá trình xử lý');
+		}		
 	}
 
 	public function actionAddWork () {
 		if (!Input::has('name') || !Input::has('note')) {
-			return Redirect::back()->with('result-add-work', -1);
+			return Redirect::back()->with('error', 'Điền đầy đủ thông tin trước khi thêm');
 		} else {
 			// Nếu trường người được giao chống thì status của công việc là null
 			$work = Input::all();
@@ -82,8 +85,11 @@ class WorkController extends AuthController {
 				$work->userId = -1;
 				$work->status = 0;
 				$work->dateStart = date("Y-m-d H:i:s");
-				$work->save();
-
+				if ($work->save()) {
+					return Redirect::back()->with('notify', "Thêm công việc thành công");
+				} else {
+					return Redirect::back()->with('error', "Có lỗi trong quá trình xử lý");
+				}
 			} else {
 				$work = new Work();
 				$work->name = Input::get('name');
@@ -91,10 +97,12 @@ class WorkController extends AuthController {
 				$work->userId = User::where('username', Input::get('username'))->first()->id;
 				$work->status = 1;
 				$work->dateStart = date("Y-m-d H:i:s");
-				$work->save();
-			}
-			return Redirect::back()->with('result-add-work', 1);	
-			
+				if ($work->save()) {
+					return Redirect::back()->with('notify', "Thêm công việc thành công");
+				} else {
+					return Redirect::back()->with('error', "Có lỗi trong quá trình xử lý");
+				}
+			}						
 		}
 		
 	}
@@ -103,7 +111,7 @@ class WorkController extends AuthController {
 		// Tìm kiếm theo tên người nhận công việc hoặc tên công việc
 		$keySearch = Input::get('key_search');
 		if (!Input::has('key_search')) {
-			return Redirect::back()->with('result-search-error', -1);
+			return Redirect::back()->with('error', "Hãy điền từ khóa trước khi tìm kiếm");
 		} else {
 			$resultSearch = $this->work->searchbyKey($keySearch);
 			return Redirect::back()->with('resultSearch', $resultSearch);
@@ -116,9 +124,9 @@ class WorkController extends AuthController {
 		$userId = User::where('username', $username)->first()->id;
 		if (Work::where('name', Input::get('name'))
 				->update(array ('userId' => $userId, 'status' => 1))) {
-			return Redirect::back()->with('result_give_work', 1);	
+			return Redirect::back()->with('notify', 'Giao công việc thành công');	
 		} else {
-			return Redirect::back()->with('result_give_work', -1);
+			return Redirect::back()->with('error', 'Có lỗi trong quá trình xử lý');
 		}
 	}
 
@@ -130,11 +138,14 @@ class WorkController extends AuthController {
 
 	public function actionUpdateWork () {
 		if (!Input::has('workId') || !Input::has('name') || !Input::has('note')) {
-			return Redirect::back()->with('result_update_work', -1);
+			return Redirect::back()->with('error', 'Điền đầy đủ thông tin trước khi cập nhật công việc');
 		} else {
-			Work::where('id', Input::get('workId'))
-				->update(array('name' => Input::get('name'), 'note' => Input::get('note')));
-			return Redirect::back()->with('result_update_work', 1);
+			if (Work::where('id', Input::get('workId'))
+				->update(array('name' => Input::get('name'), 'note' => Input::get('note')))) {
+				return Redirect::back()->with('notify', 'Cập nhật công việc thành công');
+			} else {
+				return Redirect::back()->with('error', 'Có lỗi trong quá trình xử lý');
+			}			
 		}
 	}
 
@@ -144,9 +155,9 @@ class WorkController extends AuthController {
 		$level = Input::get('level');
 		if (Work::where('id', $workId)
 			->update(array('noteRate' => $noteRate, 'level' => $level, 'status' => 2)) ) {
-			return Redirect::to('work/rate')->with('result-rate-work', 1);
+			return Redirect::back()->with('notify', 'Đánh giá công việc thành công');
 		} else {
-			return Redirect::to('work/rate')->with('result-rate-work', -1);
+			return Redirect::back()->with('error', 'Có lỗi trong quá trình xử lý');
 		}
 	}
 

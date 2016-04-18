@@ -23,26 +23,17 @@
 			</ul>
 		</div>
 
-		@if (Session::get('result-check-go-user') == -2)
-			<div class="alert alert-danger">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong>Lỗi!</strong> lỗi kết nối cơ sở dữ liệu
-			</div>
-		@endif
+		@if (Session::has('error'))
+            <div class="alert alert-danger">                    
+                <strong>Lỗi!</strong> {{ Session::get('error') }}
+            </div>
+        @endif
 
-		@if (Session::get('result-check-go-user') == -1)
-			<div class="alert alert-danger">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong>Thông báo!</strong> nhân viên này đã được điểm danh
-			</div>
-		@endif
-
-		@if (Session::get('result-check-go-user') == 1)
-			<div class="alert alert-info">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong>Thông báo!</strong> điểm danh thành công
-			</div>
-		@endif
+        @if (Session::has('notify'))
+            <div class="alert alert-success">                    
+                <strong>Thông báo!</strong> {{ Session::get('notify') }}
+            </div>
+        @endif
 
 
 		<div class="table-responsive" style="clear: both">

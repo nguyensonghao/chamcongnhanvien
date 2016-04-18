@@ -25,24 +25,15 @@
 
 <div class="panel-body">
 
-    @if (Session::get('result-delete-user') == 1)
-        <div class="alert alert-info">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>Thông báo!</strong> xóa tài khoản thành công
+    @if (Session::has('error'))
+        <div class="alert alert-danger">                    
+            <strong>Lỗi!</strong> {{ Session::get('error') }}
         </div>
     @endif
 
-    @if (Session::get('result-block-user') == 1)
-        <div class="alert alert-info">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>Thông báo!</strong> khóa tài khoản thành công
-        </div>
-    @endif
-
-    @if (Session::get('result-unblock-user') == 1)
-        <div class="alert alert-info">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>Thông báo!</strong> bỏ khóa tài khoản thành công
+    @if (Session::has('notify'))
+        <div class="alert alert-success">                    
+            <strong>Thông báo!</strong> {{ Session::get('notify') }}
         </div>
     @endif
     

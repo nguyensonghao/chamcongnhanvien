@@ -22,24 +22,15 @@
         <form action="{{ Asset('login') }}" method="POST">
             <legend>Đăng nhập hệ thống chấm công</legend>
 
-            @if (Session::get('result-login') == -2)
-                <div class="alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong>Lỗi!</strong> hãy điền đẩy đủ thông tin đăng nhập
+            @if (Session::has('error'))
+                <div class="alert alert-danger">                    
+                    <strong>Lỗi!</strong> {{ Session::get('error') }}
                 </div>
             @endif
 
-            @if (Session::get('result-login') == -1)
-                <div class="alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong>Lỗi!</strong> tài khoản hoặc mật khẩu không tồn tại
-                </div>
-            @endif
-
-            @if (Session::get('result-logout') == 1)
-                <div class="alert alert-info">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong>Thông báo!</strong> bạn vừa đăng xuất ra khỏi hệ thống
+            @if (Session::has('notify'))
+                <div class="alert alert-success">                    
+                    <strong>Thông báo!</strong> {{ Session::get('notify') }}
                 </div>
             @endif
         

@@ -6,19 +6,18 @@
 
 @section('content')
 	<div class="container col-md-6">
-		@if (Session::get('result_give_work') == -1)
-			<div class="alert alert-danger">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong>Lỗi</strong> có lỗi trong quá trình xử lỉ hệ thống
-			</div>
-		@endif 
+		@if (Session::has('error'))
+            <div class="alert alert-danger">                    
+                <strong>Lỗi!</strong> {{ Session::get('error') }}
+            </div>
+        @endif
 
-		@if (Session::get('result_give_work') == 1)
-			<div class="alert alert-info">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong>Thông báo</strong> giao việc thành công
-			</div>
-		@endif 
+        @if (Session::has('notify'))
+            <div class="alert alert-success">                    
+                <strong>Thông báo!</strong> {{ Session::get('notify') }}
+            </div>
+        @endif
+        
 		<form action="{{Asset('work/give')}}" method="POST">
 			<legend>Giao công việc</legend>
 		

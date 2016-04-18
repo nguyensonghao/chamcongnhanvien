@@ -76,12 +76,8 @@
 							$('.btn-detail-rate').click(function () {
 								if (list_work == null) {
 									alert('Không có công việc nào để đánh giá')
-								} else {
-									console.log(list_work.length);
+								} else {									
 									$('.number-work-perect').html(list_work.length);
-									// for (var i = 0; i < list_work.length; i++) {
-
-									// }
 								}
 							}) 
             			}

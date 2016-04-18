@@ -1,15 +1,15 @@
 @extends('index')
 
 @section('title')
-	Đổi mật khẩu
+	Thông tin tài khoản
 @endsection
 
 @section('content')
 
 <div class="col-md-6">
-	<form action="{{ Asset('change-password') }}" method="POST">
+	<form action="{{ Asset('update-profile') }}" method="POST">
 
-		<legend>Đổi mật khẩu</legend>
+		<legend>Thông tin tài khoản</legend>
 
 		@if (Session::has('error'))
             <div class="alert alert-danger">                    
@@ -24,21 +24,21 @@
         @endif
 
 		<div class="form-group">
-			<label>Mật khẩu cũ</label>
-			<input type="password" class="form-control" name="old_password">
+			<label>Tài khoản</label>
+			<input type="username" class="form-control" name="username" value="{{ $user->username }}">
 		</div>
 
 		<div class="form-group">
-			<label>Mật khẩu mới</label>
-			<input type="password" class="form-control" name="new_password">
+			<label>Tên đầy đủ</label>
+			<input type="text" class="form-control" name="fullname" value="{{ $user->fullname }}">
 		</div>
 
 		<div class="form-group">
-			<label>Nhập lại mật khẩu</label>
-			<input type="password" class="form-control" name="new_password_confirm">
+			<label>Email</label>
+			<input type="email" class="form-control" name="email" value="{{ $user->email }}">
 		</div>
 	
-		<button type="submit" class="btn btn-primary">Đổi</button>
+		<button type="submit" class="btn btn-primary">Cập nhật</button>
 		<button type="reset" class="btn btn-danger">Làm mới</button>
 	</form>
 </div>

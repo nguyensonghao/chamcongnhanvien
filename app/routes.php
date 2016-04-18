@@ -21,9 +21,13 @@ Route::get('/change-password', 'AcountController@showChangePassword');
 
 Route::get('/logout', 'AcountController@actionLogout');
 
+Route::get('/profile', 'AcountController@showProfile');
+
 Route::post('/login', 'AcountController@actionLogin');
 
 Route::post('/change-password', 'AcountController@actionChangePassword');
+
+Route::post('/update-profile', 'AcountController@actionUpdateProfile');
 
 // --------------------- EmployeeController ------------------
 
@@ -92,7 +96,3 @@ Route::post('/work/get-work', 'WorkController@actionGetWorkByName');
 Route::post('/work/update', 'WorkController@actionUpdateWork');
 
 Route::post('/work/rate', 'WorkController@actionRateWork');
-
-Route::get('demo', function () {
-	$user = Position::create(array('name' => 'John'));
-});	

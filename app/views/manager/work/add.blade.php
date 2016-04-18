@@ -6,19 +6,18 @@
 
 @section('content')
 	<div class="container col-md-6">
-		@if (Session::get('result-add-work') == -1)
-			<div class="alert alert-danger">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong>Lỗi</strong> hãy điền đẩy đủ thông tin công việc
-			</div>
-		@endif
+		@if (Session::has('error'))
+            <div class="alert alert-danger">                    
+                <strong>Lỗi!</strong> {{ Session::get('error') }}
+            </div>
+        @endif
 
-		@if (Session::get('result-add-work') == 1)
-			<div class="alert alert-info">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong>Thông báo</strong> thêm công việc thành công
-			</div>
-		@endif
+        @if (Session::has('notify'))
+            <div class="alert alert-success">                    
+                <strong>Thông báo!</strong> {{ Session::get('notify') }}
+            </div>
+        @endif
+        
 		<form action="{{Asset('work/add')}}" method="POST">
 			<legend>Thêm công việc</legend>
 		

@@ -25,7 +25,7 @@ class AcountController extends BaseController {
 
 	public function actionLogout () {
 		Auth::logout();
-		return Redirect::to('login')->with('result-logout', 1);
+		return Redirect::to('login')->with('error', 'Bạn vừa đăng đăng xuất');
 	}
 
 	public function actionLogin () {
@@ -34,15 +34,15 @@ class AcountController extends BaseController {
 
 		// validate data 
 		if ($username == null || $password == null) {
-			return Redirect::back()->with('result-login', -2);
+			return Redirect::back()->with('error', 'Hãy nhập đầy đủ thông tin khi đăng nhập');
 			// return screen login with error -2 => validate fails
 		} else {
 			if (Auth::attempt(array('username' => $username, 'password' => $password))) {
 				// login success
-				return Redirect::to('user/add')->with('result-login', 1);
+				return Redirect::to('user/add')->with('notify', 'Đăng nhập thành công');
 			} else {
 				// login fails
-				return Redirect::back()->with('result-login', -1);
+				return Redirect::back()->with('error', 'Tài khoản hoặc mật khẩu không tồn tại');
 			}
 		}
 	}
@@ -53,19 +53,36 @@ class AcountController extends BaseController {
 		$new_password_confirm = $_POST['new_password_confirm'];
 		if (!Input::has('old_password') || !Input::get('new_password') || Input::get('new_password_confirm')) {
 			// validate password
-			return Redirect::back()->with('result-change-password', -1);
+			return Redirect::back()->with('error', 'Hãy điền đầy đủ thông tin');
 		} else if ($new_password != $new_password_confirm) {
 			// check confirm password
-			return Redirect::back('change-password')->with('result-change-password', -2);
+			return Redirect::back('change-password')->with('error', 'Mật khẩu nhập lại không khớp');
 		} else if (Hash::check(Auth::user()->password, $old_password)) {
 			// check old password exist
-			return Redirect::back()->with('result-change-password', -3);
+			return Redirect::back()->with('error', 'Mật khẩu không khớp');
 		} else {
 			// change password in database
 			$user = Auth::user();
 			$user->password = Hash::make($new_password);
 			$user->save();
-			return Redirect::back()->with('result-change-password', 1);
+			return Redirect::back()->with('notify', 'Thay đổi mật khẩu thành công');
+		}
+	}
+
+	public function showProfile () {
+		$list['user'] = Auth::user();
+		return View::make('template.module.information', $list);
+	}
+
+	public function actionUpdateProfile () {
+		if (!Input::has('username') || !Input::has('fullname') || !Input::has('email')) {
+			return Redirect::back()->with('error', 'Điền đầy đủ thông tin trước khi cập nhật');
+		} else {
+			if (User::where('id', Auth::user()->id)->update(Input::all())) {
+				return Redirect::back()->with('notify', 'Cập nhật thông tin tài khoản thành công');
+			} else {
+				return Redirect::back()->with('error', 'Có lỗi trong quá trình xử lý');
+			}
 		}
 	}
 
